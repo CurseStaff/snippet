@@ -5,7 +5,7 @@ from django.contrib.auth import login, authenticate
 from snippet.admin import CustomUserCreationForm
 
 from .forms import SnippetForm
-from .models import Snippet
+from .models import CustomUser, Snippet
 
 
 @login_required
@@ -48,3 +48,8 @@ def create_snippet(request):
     else:
         form = SnippetForm()
     return render(request, "snippet/create_snippet.html", {"form": form})
+
+@login_required
+def update_profile(request, username):
+    user = CustomUser.objects.get(username=username)
+    return render(request, "snippet/update_profile.html", {'user': user})

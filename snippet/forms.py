@@ -1,6 +1,5 @@
 from django import forms
-from .models import Snippet
-
+from .models import CustomUser, Snippet
 
 class SnippetForm(forms.ModelForm):
     class Meta:
@@ -9,3 +8,8 @@ class SnippetForm(forms.ModelForm):
         widgets = {
             "code": forms.Textarea(attrs={"id": "code"}),
         }
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ["username", "email", "first_name", "image", "birth_date"]

@@ -123,3 +123,4 @@ MEDIA_ROOT = BASE_DIR /'media'
 # Extending User
 
 AUTH_USER_MODEL = 'snippet.CustomUser'
+LOGIN_REDIRECT_URL = "/"
