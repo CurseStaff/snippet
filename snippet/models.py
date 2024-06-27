@@ -26,7 +26,6 @@ languages = [
 
 class Snippet(models.Model):
     author = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="author")
-    shared_users = models.ManyToManyField(CustomUser, related_name="shared_users")
     title = models.CharField(max_length=200)
     code = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

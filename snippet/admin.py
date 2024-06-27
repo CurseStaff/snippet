@@ -9,10 +9,12 @@ from django import forms
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta): # type: ignore
         model = CustomUser
+        fields = UserCreationForm.Meta.fields + ("image", "birth_date") # type: ignore
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta): # type: ignore
         model = CustomUser
+        fields = UserCreationForm.Meta.fields + ("image", "birth_date") # type: ignore
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -26,6 +28,9 @@ class MyUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
     fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('image', 'birth_date',)}),
+    ) # type: ignore
+    add_fieldsets = UserAdmin.fieldsets + (
         (None, {'fields': ('image', 'birth_date',)}),
     ) # type: ignore
 
