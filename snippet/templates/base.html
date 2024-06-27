@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}My Website{% endblock %}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'base.css' %}">
+        {% block extra_head %}
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <a href="/" class="navbar-brand">Snippet</a>
+            </div>
+            <div class="navbar-right">
+                {% if user.is_authenticated %}
+                    {% if user.profile.picture %}
+                        <a href="/accounts" class="navbar-item">
+                            <div class="profile-pic">
+                                <img src="{{ user.profile.picture.url }}" alt="Profile Picture" class="profile-pic">
+                            </div>
+                        </a>
+                    {% else %}
+                        <a href="/accounts" class="navbar-item">
+                            <div class="profile-pic">
+                                <img src="{% static 'default_profil.png' %}" alt="Default Profile Picture" class="profile-pic">
+                            </div>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'logout' %}" class="navbar-item">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="navbar-item">Login</a>
+                    <a href="{% url 'signup' %}" class="navbar-item">Register</a>
+                {% endif %}
+            </div>
+        </nav>
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+        {% block extra_scripts %}{% endblock %}
+    </body>
+</html>

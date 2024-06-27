@@ -1,0 +1,41 @@
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: black;
+}
+
+.navbar a {
+    color: black;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.navbar .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar .profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+    overflow: hidden;
+}
+.navbar-right {
+    display: flex;
+    align-items: center;
+}

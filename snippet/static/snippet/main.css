@@ -1,0 +1,66 @@
+html * {
+    font-family: Roboto, sans-serif;
+}
+
+.body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+code,
+pre {
+    font-family: "Roboto Mono", monospace;
+}
+
+.codeHeader {
+    color: white;
+    display: flex;
+    padding: 8.4px 13.44px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 8.4px 8.4px 0px 0px;
+    border-bottom: 0.84px solid #fff;
+    background: #292c33;
+}
+
+.codeHeader h1 {
+    font-size: 1.4em;
+    font-weight: 400;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.codeContainer {
+    box-shadow: none;
+    border: none;
+    background-color: #292c33;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 0px 0px 8.4px 8.4px;
+}
+
+.code {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #f8f8f2;
+    background-color: #292c33;
+    border-radius: 8.4px;
+    overflow-x: auto;
+    margin: 0;
+    border: 0.84px solid #44475a;
+    max-width: 90%;
+    width: 800px;
+}
+
+button.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}

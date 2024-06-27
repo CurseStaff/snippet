@@ -1,16 +1,53 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>{{ snippet.title }}</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.css">
-        <link rel="stylesheet" href="{% static 'snippet/main.css' %}">
-    </head>
-    <body>
-        <h1>{{ snippet.title }}</h1>
-    <pre class="codeContainer"><code class="{{ snippet.language }}">{{ snippet.code }}</code></pre >
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-    </body>
+{% extends "base.html" %}
+
+{% block title %}{{ snippet.title }}{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>{{ snippet.title }}</title>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.css">
+            <link rel="stylesheet" href="{% static 'snippet/main.css' %}">
+        </head>
+        <div class="body">
+            <div class="code">
+                <div class="codeHeader">
+                    <h1>{{ snippet.title }}</h1>
+                    <button id="copyButton" class="copy-btn">
+                        <i data-lucide="copy"></i>
+                    </button>
+                </div >
+                <pre class="codeContainer"><code class="{{ snippet.language }} codeSnippet">{{ snippet.code }}</code></pre >
+            </div >
+        </div >
+    {% endblock %}
+
+    {% block extra_scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('copyButton').addEventListener('click', function() {
+                var codeSnippet = document.querySelector('.codeSnippet').innerText;
+                var textArea = document.createElement('textarea');
+                textArea.value = codeSnippet;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Code copied to clipboard!');
+            });
+        });
+    </script>
+    {% endblock %}
+
 </html>
