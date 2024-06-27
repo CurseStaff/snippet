@@ -1,0 +1,17 @@
+html * {
+    font-family: Roboto, sans-serif;
+}
+
+.codeContainer {
+    box-shadow: none;
+    border: none;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #333;
+}

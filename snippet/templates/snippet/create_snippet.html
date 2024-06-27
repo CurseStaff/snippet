@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Create Snippet</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    </head>
+    <body>
+        <h2>Create Snippet</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Snippet</button>
+        </form>
+        <p><a href="{% url 'snippet_list' %}">Back to list</a></p>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const codeInput = document.querySelector('textarea[name="code"]');
+                const languageSelect = document.querySelector('select[name="language"]');
+
+                function highlightCode() {
+                    const code = codeInput.value;
+                    const language = languageSelect.value;
+                    const highlightedCode = hljs.highlight(code, { language }).value;
+                    const highlightedElement = document.getElementById('highlighted-code');
+                    highlightedElement.innerHTML = highlightedCode;
+                }
+
+                codeInput.addEventListener('input', highlightCode);
+                languageSelect.addEventListener('change', highlightCode);
+                highlightCode();
+            });
+        </script>
+    <pre><code id="highlighted-code" class="{{ form.language.value }}"></code></pre>
+    </body>
+</html>
