@@ -14,7 +14,7 @@ SECRET_KEY = "django-insecure-)esj&iv!ciu8c+)-j@2m4gjs1)id!m6duc6%6u&+r2$$^i^%@5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -114,3 +114,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Media Configuration
+
+MEDIA_URL='/media/'
+MEDIA_ROOT = BASE_DIR /'media'
+
+# Extending User
+
+AUTH_USER_MODEL = 'snippet.CustomUser'
