@@ -1,13 +1,35 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 
+class CustomUser(AbstractUser):
+    image = models.ImageField(upload_to='profile_imgs/', null=True, blank=True, editable=True)
+
+    def __str__(self) -> str:
+        if super().first_name != "" and super().last_name != "":
+            return super().first_name + " " + super().last_name
+        else:
+            return super().username
+
+languages = [
+    ('go', 'Go'),
+    ('java', 'Java'),
+    ('cpp', 'C++'),
+    ('c', 'C'),
+    ('rust', 'Rust'),
+    ('php', 'Php'),
+    ('ruby', 'Ruby'),
+    ('js', 'Javascript'),
+    ('ts', 'Typescript'),
+]
 
 class Snippet(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="author")
     title = models.CharField(max_length=200)
     code = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    language = models.CharField(max_length=100, default="plaintext")
+    language = models.CharField(choices=languages, max_length=100, default="plaintext")
 
     def __str__(self):
         return self.title
+    

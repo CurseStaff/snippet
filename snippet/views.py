@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
-from .forms import SnippetForm
 
-from .models import Snippet
+from snippet.admin import CustomUserCreationForm
+
+from .forms import SnippetForm
+from .models import CustomUser, Snippet
 
 
 @login_required
@@ -21,7 +22,8 @@ def snippet_detail(request, pk):
 
 def signup(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()  # load the profile instance created by the signal
@@ -31,7 +33,7 @@ def signup(request):
             login(request, user)
             return redirect("snippet_list")
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, "registration/signup.html", {"form": form})
 
 
@@ -47,3 +49,8 @@ def create_snippet(request):
     else:
         form = SnippetForm()
     return render(request, "snippet/create_snippet.html", {"form": form})
+
+@login_required
+def update_profile(request, username):
+    user = CustomUser.objects.get(username=username)
+    return render(request, "snippet/update_profile.html", {'user': user})
