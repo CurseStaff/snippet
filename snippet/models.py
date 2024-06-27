@@ -3,11 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
 class CustomUser(AbstractUser):
-    birth_date = models.DateField(null=True, blank=True)
-    image = models.ImageField(upload_to='profile_imgs/')
-    email = models.EmailField('email address', unique=True) # changes email to unique and blank to false
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = [] # removes email from REQUIRED_FIELDS
+    image = models.ImageField(upload_to='profile_imgs/', null=True, blank=True, editable=True)
 
     def __str__(self) -> str:
         if super().first_name != "" and super().last_name != "":

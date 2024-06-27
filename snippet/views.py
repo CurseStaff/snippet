@@ -23,6 +23,7 @@ def snippet_detail(request, pk):
 def signup(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()  # load the profile instance created by the signal

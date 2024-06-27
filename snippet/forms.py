@@ -12,4 +12,4 @@ class SnippetForm(forms.ModelForm):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ["username", "email", "first_name", "image", "birth_date"]
+        fields = ["username", "email", "first_name", "image"]
