@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'snippet/home.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="main-container">
+        <div class="home-left">
+            <h1 class="title">Save, Share, and Shine with Your Code.</h1 >
+            <p class="description">Store your code snippets securely, share them with the community, and enhance your development workflow..</p >
+        </div >
+        <div class="home-right">
+            <img src="{% static 'snippet/home.svg' %}" alt="Home Image" class="home-image">
+        </div>
+
+    </div>
+    <div class="second-container">
+        <button onclick="window.location.href=`{% url 'login' %}`" >Get Started</button >
+    </div >
+
+{% endblock %}

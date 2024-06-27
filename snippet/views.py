@@ -8,6 +8,10 @@ from .forms import SnippetForm
 from .models import CustomUser, Snippet
 
 
+def home(request):
+    return render(request, "snippet/home.html")
+
+
 @login_required
 def snippet_list(request):
     snippets = Snippet.objects.filter(author=request.user)
