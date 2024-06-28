@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Generated Snippet{% endblock %}
+{% block extra_head %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.css">
+    <link rel="stylesheet" href="{% static 'snippet/main.css' %}">
+{% endblock %}
+{% block content %}
+    {% if snippet %}
+        <div class="body">
+            <form method="post" id="saveSnippetForm">
+                {% csrf_token %}
+                <div class="code">
+                    <div class="codeHeader">
+                        <input type="text" name="title" placeholder="Enter snippet title" required>
+                        <input type="hidden" name="language" value="{{ snippet.language }}">
+                        <input type="hidden" name="code" value="{{ snippet.code }}">
+                        <input type="hidden" name="author" value="{{ request.user.id }}">
+                        <button id="copyButton" class="copy-btn">
+                            <i data-lucide="copy"></i>
+                        </button>
+                    </div>
+                <pre class="codeContainer"><code class="{{ snippet.language }} codeSnippet">{{ snippet.code }}</code></pre>
+                </div>
+                <button type="submit" class="saveButton" name="save_snippet">Save Snippet</button>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block extra_scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('copyButton').addEventListener('click', function() {
+                var codeSnippet = document.querySelector('.codeSnippet').innerText;
+                var textArea = document.createElement('textarea');
+                textArea.value = codeSnippet;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Code copied to clipboard!');
+            });
+
+            document.getElementById('saveSnippetForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var title = document.querySelector('input[name="title"]').value;
+                if (title.trim() === '') {
+                    alert('Please enter a title for the snippet.');
+                    return;
+                }
+                this.submit(); // submit the form normally
+            });
+        });
+    </script>
+{% endblock %}

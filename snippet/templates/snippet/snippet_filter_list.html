@@ -3,7 +3,7 @@
 
 {% block title %}Snippet Finder{% endblock %}
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'snippet/home.css' %}">
+    <link rel="stylesheet" href="{% static 'snippet/list.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -13,8 +13,14 @@
             <input type="submit" />
         </form>
 
-        {% for obj in filter.qs %}
-            <a href="{% url 'snippet_detail' obj.pk %}">{{ obj.title }}</a> <br />
-        {% endfor %}
+        <div class="snippet-container">
+            {% for obj in filter.qs %}
+                <a href="{% url 'snippet_detail' obj.pk %}">
+                    <div class="snippet">
+                        {{ obj.title }} <br />
+                    </div >
+                </a>
+            {% endfor %}
+        </div >
     </div>
 {% endblock %}

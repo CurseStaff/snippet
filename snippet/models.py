@@ -33,11 +33,11 @@ languages = [
 
 
 class Snippet(models.Model):
-    author = models.OneToOneField(
+    author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="author"
     )
     title = models.CharField(max_length=200)
-    code = models.TextField()
+    code = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     language = models.CharField(choices=languages, max_length=100, default="plaintext")
 

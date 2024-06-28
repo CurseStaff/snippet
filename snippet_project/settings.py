@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 from django.conf.urls import handler404
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,10 +17,15 @@ SECRET_KEY = "django-insecure-)esj&iv!ciu8c+)-j@2m4gjs1)id!m6duc6%6u&+r2$$^i^%@5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Application definition
+
+
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -118,14 +125,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Media Configuration
 
-MEDIA_URL='/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Extending User
 
-AUTH_USER_MODEL = 'snippet.CustomUser'
+AUTH_USER_MODEL = "snippet.CustomUser"
 LOGIN_REDIRECT_URL = "/"
 
 # 404 Handling
 
-handler404 = 'snippet.view.custom_404'
+handler404 = "snippet.view.custom_404"

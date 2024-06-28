@@ -1,27 +1,22 @@
 {% extends "base.html" %}
 
 {% block title %}{{ snippet.title }}{% endblock %}
-
+{% load static %}
+{% block extra_head %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.css">
+    <link rel="stylesheet" href="{% static 'snippet/main.css' %}">
+{% endblock %}
 {% block content %}
-    {% load static %}
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>{{ snippet.title }}</title>
-            <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-            <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.css">
-            <link rel="stylesheet" href="{% static 'snippet/main.css' %}">
-        </head>
-        <div class="body">
-            <div class="code">
-                <div class="codeHeader">
-                    <h1>{{ snippet.title }}</h1>
-                    <button id="copyButton" class="copy-btn">
-                        <i data-lucide="copy"></i>
-                    </button>
-                </div >
+    <div class="body">
+        <div class="code">
+            <div class="codeHeader">
+                <h1>{{ snippet.title }}</h1>
+                <button id="copyButton" class="copy-btn">
+                    <i data-lucide="copy"></i>
+                </button>
+            </div >
                 <pre class="codeContainer"><code class="{{ snippet.language }} codeSnippet">{{ snippet.code }}</code></pre >
             </div >
         </div >
@@ -49,5 +44,3 @@
         });
     </script>
     {% endblock %}
-
-</html>
