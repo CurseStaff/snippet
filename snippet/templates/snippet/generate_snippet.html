@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Generate Snippet{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="form-container">
+        <div>
+            <h1>Generate Snippet</h1>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" name="generate_snippet">Generate Snippet</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

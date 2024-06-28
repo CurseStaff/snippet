@@ -2,9 +2,13 @@
 <html>
     <head>
         <title>Logged Out</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'form.css' %}">
     </head>
     <body>
-        <h1>You have been logged out</h1>
-        <a href="{% url 'login' %}">Login again</a>
+        <div class="main-container">
+            <h1>You have been logged out</h1>
+            <a class="button" href="{% url 'login' %}">Login again</a>
+        </div>
     </body>
 </html>
