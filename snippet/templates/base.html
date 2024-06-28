@@ -17,21 +17,25 @@
                 <a href="/" class="navbar-brand">Snippet</a>
             </div>
             <div class="navbar-right">
+                <a href="{% url 'snippet_filter_list' %}" class="navbar-item"> My Snippets</a>
                 {% if user.is_authenticated %}
-                    {% if user.profile.picture %}
-                        <a href="/accounts" class="navbar-item">
+                    {% if user.image and user.image.url %}
+                        <a href="{% url 'profile' %}" class="navbar-item">
                             <div class="profile-pic">
-                                <img src="{{ user.profile.picture.url }}" alt="Profile Picture" class="profile-pic">
+                                <img src="{{ user.image.url }}" alt="Profile Picture" class="profile-pic">
                             </div>
                         </a>
                     {% else %}
-                        <a href="/accounts" class="navbar-item">
+                        <a href="{% url 'profile' %}" class="navbar-item">
                             <div class="profile-pic">
                                 <img src="{% static 'default_profil.png' %}" alt="Default Profile Picture" class="profile-pic">
                             </div>
                         </a>
                     {% endif %}
-                    <a href="{% url 'logout' %}" class="navbar-item">Logout</a>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="button-transparent" type="submit">Logout</button>
+                    </form>
                 {% else %}
                     <a href="{% url 'login' %}" class="navbar-item">Login</a>
                     <a href="{% url 'signup' %}" class="navbar-item">Register</a>

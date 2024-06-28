@@ -20,7 +20,7 @@ body {
 }
 
 .navbar a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .navbar .navbar-brand {
@@ -38,4 +38,26 @@ body {
 .navbar-right {
     display: flex;
     align-items: center;
+}
+
+.button-transparent {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    text-decoration: none;
+}
+
+.button-transparent:hover,
+.button-transparent:focus,
+.button-transparent:active {
+    background: none;
+    border: none;
+    color: inherit;
+    text-decoration: none;
+    outline: none;
 }
