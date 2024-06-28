@@ -3,10 +3,34 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 
 from snippet.admin import CustomUserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import SnippetForm
-from .models import CustomUser, Snippet
+from .models import CustomUser, languages, Snippet
 
+import django_filters
+
+# FilterViews
+
+class SnippetFilter(django_filters.FilterSet):
+    title = django_filters.CharFilter(field_name='title', lookup_expr='icontains', label='Title')
+    language = django_filters.ChoiceFilter(
+        field_name = 'language',
+        choices = [language for language in languages],
+        lookup_expr='iexact',
+        label = 'Programming Language'
+    )
+
+    class Meta:
+        model = Snippet
+        fields = ['title']
+
+@login_required
+def snippet_filter_list(request):
+    f = SnippetFilter(request.GET, queryset=Snippet.objects.all())
+    return render(request, 'snippet/snippet_filter_list.html', {'filter': f})
+
+# Views
 
 def home(request):
     return render(request, "snippet/home.html")
@@ -58,3 +82,8 @@ def create_snippet(request):
 def update_profile(request, username):
     user = CustomUser.objects.get(username=username)
     return render(request, "snippet/update_profile.html", {'user': user})
+
+# Custom 404 Handling
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)

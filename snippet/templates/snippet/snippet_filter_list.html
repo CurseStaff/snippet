@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Snippet Finder{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'snippet/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <form method="get">
+    {{ filter.form.as_p }}
+    <input type="submit" />
+    </form>
+
+    {% for obj in filter.qs %} 
+        <a href="{% url 'snippet_detail' obj.pk %}">{{ obj.title }}</a> <br />
+    {% endfor %}
+    <a href="{% url 'snippet_list' %}">Back to Snippet List</a>
+</div>
+{% endblock %}
