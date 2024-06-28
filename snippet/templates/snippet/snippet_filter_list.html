@@ -7,15 +7,14 @@
 {% endblock %}
 
 {% block content %}
-<div class="main-container">
-    <form method="get">
-    {{ filter.form.as_p }}
-    <input type="submit" />
-    </form>
+    <div class="main-container">
+        <form method="get">
+            {{ filter.form.as_p }}
+            <input type="submit" />
+        </form>
 
-    {% for obj in filter.qs %} 
-        <a href="{% url 'snippet_detail' obj.pk %}">{{ obj.title }}</a> <br />
-    {% endfor %}
-    <a href="{% url 'snippet_list' %}">Back to Snippet List</a>
-</div>
+        {% for obj in filter.qs %}
+            <a href="{% url 'snippet_detail' obj.pk %}">{{ obj.title }}</a> <br />
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -17,7 +17,7 @@
                 <a href="/" class="navbar-brand">Snippet</a>
             </div>
             <div class="navbar-right">
-                <a href="{% url 'snippet_list' %}" class="navbar-item"> My Snippets</a>
+                <a href="{% url 'snippet_filter_list' %}" class="navbar-item"> My Snippets</a>
                 {% if user.is_authenticated %}
                     {% if user.image and user.image.url %}
                         <a href="{% url 'profile' %}" class="navbar-item">
