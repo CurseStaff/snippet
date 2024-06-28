@@ -57,7 +57,7 @@ def snippet_list(request):
     return render(request, "snippet/snippet_list.html", {"snippets": snippets})
 
 
-@login_required
+# @login_required
 def snippet_detail(request, pk):
     snippet = get_object_or_404(Snippet, pk=pk)
     return render(request, "snippet/snippet_detail.html", {"snippet": snippet})
@@ -160,7 +160,7 @@ def generate_snippet(request):
                         r"^```(?:\w+)?\n(.*)\n```$", re.DOTALL
                     )
 
-                    match = code_block_pattern.match(snippetGenerated)
+                    match = code_block_pattern.match(snippetGenerated) # type: ignore
 
                     if match:
                         snippet_content = match.group(1).strip()
