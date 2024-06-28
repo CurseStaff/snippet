@@ -2,5 +2,6 @@ db.sqlite3
 .vscode/
 **/__pycache__/**
 snippet/__pycache__/
+snippet/migrations/__pycache__/
 media
 .env
