@@ -58,3 +58,8 @@ def create_snippet(request):
 def update_profile(request, username):
     user = CustomUser.objects.get(username=username)
     return render(request, "snippet/update_profile.html", {'user': user})
+
+# Custom 404 Handling
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
