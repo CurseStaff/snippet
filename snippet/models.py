@@ -2,29 +2,40 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
-class CustomUser(AbstractUser):
-    image = models.ImageField(upload_to='profile_imgs/', null=True, blank=True, editable=True)
 
-    def __str__(self) -> str:
-        if super().first_name != "" and super().last_name != "":
-            return super().first_name + " " + super().last_name
+def user_directory_path(instance, filename):
+    return f"user_{instance.id}/{filename}"
+
+
+class CustomUser(AbstractUser):
+    image = models.ImageField(
+        upload_to=user_directory_path, null=True, blank=True, editable=True
+    )
+
+    def __str__(self):
+        if self.first_name and self.last_name:
+            return f"{self.first_name} {self.last_name}"
         else:
-            return super().username
+            return self.username
+
 
 languages = [
-    ('go', 'Go'),
-    ('java', 'Java'),
-    ('cpp', 'C++'),
-    ('c', 'C'),
-    ('rust', 'Rust'),
-    ('php', 'Php'),
-    ('ruby', 'Ruby'),
-    ('js', 'Javascript'),
-    ('ts', 'Typescript'),
+    ("go", "Go"),
+    ("java", "Java"),
+    ("cpp", "C++"),
+    ("c", "C"),
+    ("rust", "Rust"),
+    ("php", "Php"),
+    ("ruby", "Ruby"),
+    ("js", "Javascript"),
+    ("ts", "Typescript"),
 ]
 
+
 class Snippet(models.Model):
-    author = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="author")
+    author = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="author"
+    )
     title = models.CharField(max_length=200)
     code = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -32,4 +43,3 @@ class Snippet(models.Model):
 
     def __str__(self):
         return self.title
-    
