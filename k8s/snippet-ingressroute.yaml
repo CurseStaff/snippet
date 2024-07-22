@@ -1,21 +1,16 @@
-name: Sync to Production
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Trigger Argo CD Sync
-        uses: argoproj/argo-cd-action@v1
-        with:
-          server: ${{ secrets.ARGOCD_SERVER }}
-          token: ${{ secrets.ARGOCD_TOKEN }}
-          app: snippet
-          action: sync
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: snippet-ingress
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`snippet.playground-charly.fr`)
+      services:
+        - name: snippet-service
+          port: 80
+  tls:
+    secretName: snippet-tls-secret
