@@ -17,5 +17,5 @@ jobs:
         with:
           server: ${{ secrets.ARGOCD_SERVER }}
           token: ${{ secrets.ARGOCD_TOKEN }}
-          app: your-argocd-app-name
+          app: snippet
           action: sync
