@@ -5,3 +5,5 @@ snippet/__pycache__/
 snippet/migrations/__pycache__/
 media
 .env
+staticfiles/
+```

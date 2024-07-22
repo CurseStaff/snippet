@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snippet-django
+  labels:
+    app: snippet
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: snippet
+  template:
+    metadata:
+      labels:
+        app: snippet
+    spec:
+      containers:
+        - name: snippet-django
+          image: ghcr.io/${{ github.repository_owner }}/snippet-django:latest
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: static-files
+              mountPath: /app/static
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: "snippet.settings"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: snippet-secrets
+                  key: database_url
+      volumes:
+        - name: static-files
+          persistentVolumeClaim:
+            claimName: snippet-static-pvc
