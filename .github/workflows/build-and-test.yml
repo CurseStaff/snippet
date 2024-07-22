@@ -24,21 +24,21 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/snippet-django:${{ github.sha }} .
+          docker build -t ghcr.io/charlyrousseau/snippet-django:${{ github.sha }} .
           docker tag ghcr.io/${{ github.repository_owner }}/snippet-django:${{ github.sha }} ghcr.io/${{ github.repository_owner }}/snippet-django:latest
 
       - name: Run Tests
         run: |
-          docker run --rm ghcr.io/${{ github.repository_owner }}/snippet-django:${{ github.sha }} python manage.py test
+          docker run --rm ghcr.io/charlyrousseau/snippet-django:${{ github.sha }} python manage.py test
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/snippet-django:${{ github.sha }}
-          docker push ghcr.io/${{ github.repository_owner }}/snippet-django:latest
+          docker push ghcr.io/charlyrousseau/snippet-django:${{ github.sha }}
+          docker push ghcr.io/charlyrousseau/snippet-django:latest
 
       - name: Update Kubernetes manifests
         run: |
-          sed -i 's|image: ghcr.io/${{ github.repository_owner }}/snippet-django:.*|image: ghcr.io/${{ github.repository_owner }}/snippet-django:${{ github.sha }}|g' k8s/django-deployment.yaml
+          sed -i 's|image: ghcr.io/charlyrousseau/snippet-django:.*|image: ghcr.io/${{ github.repository_owner }}/snippet-django:${{ github.sha }}|g' k8s/django-deployment.yaml
           git config --global user.name 'github-actions'
           git config --global user.email 'actions@github.com'
           git add k8s/django-deployment.yaml
