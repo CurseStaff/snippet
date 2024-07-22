@@ -34,3 +34,5 @@ spec:
         - name: static-files
           persistentVolumeClaim:
             claimName: snippet-static-pvc
+      imagePullSecrets:
+        - name: ghcr-secret
