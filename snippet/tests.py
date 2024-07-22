@@ -1,10 +1,9 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm
-from snippet.models import CustomUser
+from snippet.models import CustomUser, Snippet
 
 # Create your tests here.
-
 class LoginTestCase(TestCase):
     
     def setUp(self):
@@ -42,3 +41,19 @@ class LoginTestCase(TestCase):
 
         # Vérification que le formulaire de login est bien rendu après un échec de connexion
         self.assertIsInstance(response.context['form'], AuthenticationForm)
+
+class SnippetTestCase(TestCase):
+    def setUp(self):
+        # Créez un utilisateur s'il n'existe pas
+        self.user, created = CustomUser.objects.get_or_create(username="user", defaults={"password": "password"})
+        
+        # Créez un snippet pour cet utilisateur
+        self.snippet = Snippet.objects.create(author=self.user, title="UT Title", code="", language="c")
+
+    def test_snippet(self):
+        # Récupérez le snippet créé dans setUp
+        test = Snippet.objects.get(title="UT Title")
+        # Vérifiez que la langue est correcte
+        self.assertEqual(test.language, "c")
+        # Vérifiez que le contenu du code soit bien vide et non nul
+        self.assertEqual(test.code, "")
