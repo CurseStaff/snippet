@@ -1,7 +1,7 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm
-from snippet.models import CustomUser, languages, Snippet
+from snippet.models import CustomUser, Snippet
 
 # Create your tests here.
 class LoginTestCase(TestCase):
