@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: snippet-nginx
   labels:
-    app: nginx
+    app: snippet
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: nginx
+      app: snippet
   template:
     metadata:
       labels:
-        app: nginx
+        app: snippet
     spec:
       containers:
         - name: snippet-nginx
@@ -20,10 +20,12 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - name: nginx-config
+            - name: nginx-config-volume
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
       volumes:
-        - name: nginx-config
+        - name: nginx-config-volume
           configMap:
             name: snippet-nginx-config
+      imagePullSecrets:
+        - name: ghcr-secret
