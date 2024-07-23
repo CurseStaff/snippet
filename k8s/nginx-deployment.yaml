@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: snippet-nginx
   labels:
-    app: snippet
+    app: nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: snippet
+      app: nginx
   template:
     metadata:
       labels:
-        app: snippet
+        app: nginx
     spec:
       containers:
         - name: snippet-nginx
