@@ -10,7 +10,7 @@ spec:
     - kind: Rule
       match: Host(`snippet.playground-charly.fr`)
       services:
-        - name: snippet-service
+        - name: snippet-nginx-service
           port: 80
   tls:
     secretName: snippet-tls-secret
