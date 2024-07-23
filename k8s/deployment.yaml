@@ -24,7 +24,7 @@ spec:
               mountPath: /app/static
           env:
             - name: DJANGO_SETTINGS_MODULE
-              value: "snippet.settings"
+              value: "snippet_project.settings"
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
