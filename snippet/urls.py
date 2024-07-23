@@ -13,4 +13,5 @@ urlpatterns = [
     path("profile/<str:username>/", views.update_profile, name="edit_profile"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("generate/", views.generate_snippet, name="generate_snippet"),
+    path('snippets/generation-error/', views.generation_error, name='generation_error'),
 ]
